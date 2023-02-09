@@ -1,0 +1,1 @@
+insert into tax_transferencia (min_valor_transf, max_valor_transf, min_dias_transf, max_dias_transf, porcentagem_tax, tax_fixa) values (null, 1000.00, null, 0, 3.0, 3.00), (1000.00, 2000.00, null, 10, 0, 12.00), (2000.00, null, 10, 20, 8.2, 0), (2000.00, null, 20, 30, 6.9, 0), (2000.00, null, 30, 40, 4.7, 0), (2000.00, null, 40, null, 4.7, 0)
