@@ -2,17 +2,16 @@ package com.obedera.transferencias.financeiras.gateway.database.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name="tax_transferencia")
-public class TaxTransferencia {
+@Data
+public class TaxTransferenciaEntity {
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-
 
     @Column(name="min_valor_transf")
     private BigDecimal minValorTransf;
@@ -31,4 +30,5 @@ public class TaxTransferencia {
 
     @Column(name="tax_fixa")
     private BigDecimal taxFixa;
+
 }
