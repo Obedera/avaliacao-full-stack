@@ -1,9 +1,14 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Views 
+import { TransferCrudComponent } from './views/transferencia-crud/transfer-crud.component';
 
+// Material
+import { MatButtonModule } from '@angular/material/button';
 
 
 // Set Locale PT-BR 
@@ -14,10 +19,13 @@ registerLocaleData(localePt)
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TransferCrudComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    MatButtonModule
   ],
   providers: [
     {
