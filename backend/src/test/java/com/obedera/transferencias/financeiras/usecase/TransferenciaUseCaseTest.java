@@ -27,6 +27,7 @@ import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemp
 import static com.obedera.transferencias.financeiras.template.TaxTransferenciaTemplate.VALID_TAX_TYPE_A;
 import static com.obedera.transferencias.financeiras.template.TransferenciaRequestTemplate.VALID_TRANSFER_REQUEST;
 import static com.obedera.transferencias.financeiras.template.TransferenciaResponseTemplate.VALID_TRANSFER_RESPONSE;
+import static com.obedera.transferencias.financeiras.template.TransferenciaResponseTemplate.VALID_RESUME_TRANSFER_RESPONSE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -70,4 +71,28 @@ public class TransferenciaUseCaseTest {
         Assert.assertNotNull(transferenciaResponse.getContaOrigem());
         Assert.assertNotNull(transferenciaResponse.getContaDestino());
     }
+
+    @Test
+    public void deveGerarResumoTransferencia(){
+        when(transferenciaBuilder.build(any())).thenReturn(Fixture.from(TransferenciaResponse.class).gimme(VALID_RESUME_TRANSFER_RESPONSE));
+        when(taxTransferenciaUseCase.calcularTaxaTransferencia(any(), any(), any())).thenReturn(new BigDecimal("6.00"));
+
+        TransferenciaRequest transferenciaRequest = Fixture.from(TransferenciaRequest.class).gimme(VALID_TRANSFER_REQUEST);
+        var transferenciaResponse = transferenciaUseCase.resumoTransferencia(transferenciaRequest);
+
+        verify(taxTransferenciaUseCase, times(1)).calcularTaxaTransferencia(any(), any(), any());
+        verify(taxTransferenciaUseCase).calcularTaxaTransferencia(any(BigDecimal.class), any(LocalDate.class), any(LocalDate.class));
+        verify(transferenciaRepositoryFacade, times(0)).save(any(TransferenciaEntity.class));
+        verify(transferenciaBuilder, times(1)).build(any());
+
+        Assert.assertNull(transferenciaResponse.getId());
+        Assert.assertNotNull(transferenciaResponse.getDataTransferencia());
+        Assert.assertNotNull(transferenciaResponse.getDataAgendamento());
+        Assert.assertNotNull(transferenciaResponse.getValor());
+        Assert.assertNotNull(transferenciaResponse.getTaxa());
+        Assert.assertNotNull(transferenciaResponse.getContaOrigem());
+        Assert.assertNotNull(transferenciaResponse.getContaDestino());
+    }
+
+
 }

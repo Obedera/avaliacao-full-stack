@@ -42,6 +42,23 @@ public class TransferenciaUseCase {
         return transferenciaBuilder.build(transferenciaRepositoryFacade.save(transferenciaEntity));
     }
 
+    public TransferenciaResponse resumoTransferencia(TransferenciaRequest transferenciaRequest){
+        var transferenciaEntity = new TransferenciaEntity();
+        transferenciaEntity.setDataTransferencia(convertToDate(transferenciaRequest.getDataTransferencia()));
+        transferenciaEntity.setDataAgendamento(convertToDate(transferenciaRequest.getDataAgendamento()));
+        transferenciaEntity.setValor(transferenciaRequest.getValor());
+        transferenciaEntity.setContaOrigem(transferenciaRequest.getContaOrigem());
+        transferenciaEntity.setContaDestino(transferenciaRequest.getContaDestino());
+        transferenciaEntity.setTaxa(
+                taxTransferenciaUseCase.calcularTaxaTransferencia(
+                        transferenciaRequest.getValor(),
+                        transferenciaEntity.getDataAgendamento(),
+                        transferenciaEntity.getDataTransferencia()
+                )
+        );
+        return transferenciaBuilder.build(transferenciaEntity);
+    }
+
     private LocalDate convertToDate(String date) {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
