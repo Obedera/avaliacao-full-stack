@@ -5,8 +5,10 @@ import com.obedera.transferencias.financeiras.gateway.database.entity.TaxTransfe
 import com.obedera.transferencias.financeiras.gateway.database.entity.TransferenciaEntity;
 import com.obedera.transferencias.financeiras.gateway.database.repository.TaxTransferenciaRepositoryFacade;
 import com.obedera.transferencias.financeiras.gateway.database.repository.TransferenciaRepositoryFacade;
+import com.obedera.transferencias.financeiras.http.domain.builder.HistoricoTransferenciaBuilder;
 import com.obedera.transferencias.financeiras.http.domain.builder.TransferenciaBuilder;
 import com.obedera.transferencias.financeiras.http.domain.request.TransferenciaRequest;
+import com.obedera.transferencias.financeiras.http.domain.response.HistoricoTransferenciaResponse;
 import com.obedera.transferencias.financeiras.http.domain.response.TransferenciaResponse;
 import com.obedera.transferencias.financeiras.template.Templates;
 import com.obedera.transferencias.financeiras.template.TransferenciaResponseTemplate;
@@ -28,6 +30,7 @@ import static com.obedera.transferencias.financeiras.template.TaxTransferenciaTe
 import static com.obedera.transferencias.financeiras.template.TransferenciaRequestTemplate.VALID_TRANSFER_REQUEST;
 import static com.obedera.transferencias.financeiras.template.TransferenciaResponseTemplate.VALID_TRANSFER_RESPONSE;
 import static com.obedera.transferencias.financeiras.template.TransferenciaResponseTemplate.VALID_RESUME_TRANSFER_RESPONSE;
+import static com.obedera.transferencias.financeiras.template.HistoricoTransferenciaResponseTemplate.VALID_HISTORY_TRANSFER_RESPONSE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -45,6 +48,9 @@ public class TransferenciaUseCaseTest {
 
     @Mock
     private TransferenciaBuilder transferenciaBuilder;
+
+    @Mock
+    private HistoricoTransferenciaBuilder historicoTransferenciaBuilder;
 
     @InjectMocks
     private TransferenciaUseCase transferenciaUseCase;
@@ -92,6 +98,18 @@ public class TransferenciaUseCaseTest {
         Assert.assertNotNull(transferenciaResponse.getTaxa());
         Assert.assertNotNull(transferenciaResponse.getContaOrigem());
         Assert.assertNotNull(transferenciaResponse.getContaDestino());
+    }
+
+    @Test
+    public void deveGerarHistorivoTransferencias(){
+        when(historicoTransferenciaBuilder.build(any())).thenReturn(Fixture.from(HistoricoTransferenciaResponse.class).gimme(VALID_HISTORY_TRANSFER_RESPONSE));
+
+        var historicoTransferenciaResponse = transferenciaUseCase.listarTransferencias();
+
+        verify(transferenciaRepositoryFacade, times(1)).findAll();
+        verify(historicoTransferenciaBuilder, times(1)).build(any());
+
+        Assert.assertNotNull(historicoTransferenciaResponse.getHistoricoTransferencias());
     }
 
 

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TransferenciaRepositoryFacadeImpl implements TransferenciaRepositoryFacade {
@@ -16,6 +18,11 @@ public class TransferenciaRepositoryFacadeImpl implements TransferenciaRepositor
     @Override
     public TransferenciaEntity save(TransferenciaEntity transferenciaEntity){
         return transferenciaRepository.save(transferenciaEntity);
+    }
+
+    @Override
+    public List<TransferenciaEntity> findAll(){
+        return transferenciaRepository.findAll();
     }
 
 }

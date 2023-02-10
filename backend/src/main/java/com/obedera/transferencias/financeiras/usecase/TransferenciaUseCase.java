@@ -2,8 +2,10 @@ package com.obedera.transferencias.financeiras.usecase;
 
 import com.obedera.transferencias.financeiras.gateway.database.entity.TransferenciaEntity;
 import com.obedera.transferencias.financeiras.gateway.database.repository.TransferenciaRepositoryFacade;
+import com.obedera.transferencias.financeiras.http.domain.builder.HistoricoTransferenciaBuilder;
 import com.obedera.transferencias.financeiras.http.domain.builder.TransferenciaBuilder;
 import com.obedera.transferencias.financeiras.http.domain.request.TransferenciaRequest;
+import com.obedera.transferencias.financeiras.http.domain.response.HistoricoTransferenciaResponse;
 import com.obedera.transferencias.financeiras.http.domain.response.TransferenciaResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class TransferenciaUseCase {
 
     @Autowired
     private TransferenciaBuilder transferenciaBuilder;
+
+    @Autowired
+    private HistoricoTransferenciaBuilder historicoTransferenciaBuilder;
 
     public TransferenciaResponse salvarTransferencia(TransferenciaRequest transferenciaRequest){
         var transferenciaEntity = new TransferenciaEntity();
@@ -57,6 +62,10 @@ public class TransferenciaUseCase {
                 )
         );
         return transferenciaBuilder.build(transferenciaEntity);
+    }
+
+    public HistoricoTransferenciaResponse listarTransferencias(){
+        return historicoTransferenciaBuilder.build(transferenciaRepositoryFacade.findAll());
     }
 
     private LocalDate convertToDate(String date) {
