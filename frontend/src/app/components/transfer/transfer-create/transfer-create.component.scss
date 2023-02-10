@@ -1,0 +1,22 @@
+.mat-card{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.btn-submit{
+  width: 100%;
+}
+
+form {
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+
+  .mat-form-field{
+    margin-top: 10px;
+  }
+}

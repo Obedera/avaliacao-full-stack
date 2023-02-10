@@ -15,4 +15,12 @@ export class TransferCrudComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  navigateToTransferCreate(): void {
+    this.router.navigate(['/transfer/register'])
+  }
+
+  navigateToTransferHistory(): void {
+    this.router.navigate([''])
+  }
+
 }

@@ -33,8 +33,22 @@ export class TransferService {
     );
   }
 
+  resume(transfer: Transfer): Observable<Transfer>{
+    return this.http.post<Transfer>(`${this.baseUrl}/resumo`, transfer).pipe(
+      map(obj => obj),
+      catchError(e => this.errorHandle(e))
+    );
+  }
+
+  confirm(transfer: Transfer): Observable<Transfer>{
+    return this.http.post<Transfer>(`${this.baseUrl}/confirmar`, transfer).pipe(
+      map(obj => obj),
+      catchError(e => this.errorHandle(e))
+    );
+  }
+
   errorHandle(e: any): Observable<any>{
-    this.showMessage('Ocorreu um erro')
+    this.showMessage(e.error?.message || 'Ocorreu um erro')
     return EMPTY
   }
 }

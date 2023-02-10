@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>Nova Transferencia</mat-card-title>
+  <form [formGroup]="formTransfer" (ngSubmit)="resumeTransfer()">
+      <mat-form-field>
+          <input matInput placeholder="Conta Origem (XXXXXX)" minlength="6" maxlength="6" formControlName="contaOrigem" required>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Conta Destino (XXXXXX)" minlength="6" maxlength="6" formControlName="contaDestino" required>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput appCurrencyMask placeholder="Valor (R$)" formControlName="valor" required>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Data Agendamento" maxlength="10" formControlName="dataAgendamento" required>
+      </mat-form-field>
+      
+      <mat-form-field>
+          <input matInput placeholder="Data Transferencia" (input)="handleDataTransferencia()"  maxlength="10" formControlName="dataTransferencia" required>
+      </mat-form-field>
+      <button class="btn-submit" mat-raised-button type="submit" color="primary">
+          Salvar
+      </button>
+  </form>
+</mat-card>

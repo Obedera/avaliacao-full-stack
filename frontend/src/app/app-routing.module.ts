@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TransferCreateComponent } from './components/transfer/transfer-create/transfer-create.component';
+import { TransferReadComponent } from './components/transfer/transfer-read/transfer-read.component';
 
-import { TransferCrudComponent } from './views/transfer-crud/transfer-crud.component';
 
 const routes: Routes = [
   {
     path: "",
-    component: TransferCrudComponent
-  }
+    component: TransferReadComponent
+  },
+  {
+    path: "transfer/register",
+    component: TransferCreateComponent
+  },
+  
 
 ];
 
