@@ -1,0 +1,47 @@
+<table mat-table [dataSource]="transfers" *ngIf="transfers" class="mat-elevation-z8">
+  <!-- Id Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- contaOrigem Column -->
+  <ng-container matColumnDef="contaOrigem">
+    <th mat-header-cell *matHeaderCellDef> Conta Origem </th>
+    <td mat-cell *matCellDef="let element"> {{element.contaOrigem}} </td>
+  </ng-container>
+
+  <!-- contaOrigem Column -->
+  <ng-container matColumnDef="contaDestino">
+    <th mat-header-cell *matHeaderCellDef> Conta Destino </th>
+    <td mat-cell *matCellDef="let element"> {{element.contaDestino}} </td>
+  </ng-container>
+
+  <!-- valor Column -->
+  <ng-container matColumnDef="valor">
+    <th mat-header-cell *matHeaderCellDef> Valor </th>
+    <td mat-cell *matCellDef="let element"> {{element.valor | currency: 'BRL'}} </td>
+  </ng-container>
+
+  <!-- taxa Column -->
+  <ng-container matColumnDef="taxa">
+    <th mat-header-cell *matHeaderCellDef> Taxa </th>
+    <td mat-cell *matCellDef="let element"> {{element.taxa | currency: 'BRL'}} </td>
+  </ng-container>
+
+  <!-- dataAgendamento Column -->
+  <ng-container matColumnDef="dataAgendamento">
+    <th mat-header-cell *matHeaderCellDef> Data Agendamento</th>
+    <td mat-cell *matCellDef="let element"> {{element.dataAgendamento | date: 'dd/MM/yyyy'}} </td>
+  </ng-container>
+
+  <!-- dataTransferencia Column -->
+  <ng-container matColumnDef="dataTransferencia">
+    <th mat-header-cell *matHeaderCellDef> Data Transferencia </th>
+    <td mat-cell *matCellDef="let element"> {{element.dataTransferencia | date: 'dd/MM/yyyy'}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TransferCrudComponent } from './views/transferencia-crud/transfer-crud.component';
+import { TransferCrudComponent } from './views/transfer-crud/transfer-crud.component';
 
 const routes: Routes = [
   {
