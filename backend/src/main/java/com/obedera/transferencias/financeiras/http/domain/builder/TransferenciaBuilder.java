@@ -6,6 +6,8 @@ import com.obedera.transferencias.financeiras.http.domain.response.Transferencia
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
+
 @Slf4j
 @Service
 public class TransferenciaBuilder {
@@ -15,10 +17,10 @@ public class TransferenciaBuilder {
                 .id(entity.getId())
                 .dataAgendamento(entity.getDataAgendamento().toString())
                 .dataTransferencia(entity.getDataTransferencia().toString())
-                .taxa(entity.getTaxa())
+                .taxa(entity.getTaxa().setScale(2, RoundingMode.DOWN))
                 .contaDestino(entity.getContaDestino())
                 .contaOrigem(entity.getContaOrigem())
-                .valor(entity.getValor())
+                .valor(entity.getValor().setScale(2, RoundingMode.DOWN))
                 .build();
 
     }

@@ -9,8 +9,11 @@ import com.obedera.transferencias.financeiras.http.domain.response.HistoricoTran
 import com.obedera.transferencias.financeiras.http.domain.response.TransferenciaResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -34,7 +37,7 @@ public class TransferenciaUseCase {
         var transferenciaEntity = new TransferenciaEntity();
         transferenciaEntity.setDataTransferencia(convertToDate(transferenciaRequest.getDataTransferencia()));
         transferenciaEntity.setDataAgendamento(convertToDate(transferenciaRequest.getDataAgendamento()));
-        transferenciaEntity.setValor(transferenciaRequest.getValor());
+        transferenciaEntity.setValor(transferenciaRequest.getValor().setScale(2, RoundingMode.DOWN));
         transferenciaEntity.setContaOrigem(transferenciaRequest.getContaOrigem());
         transferenciaEntity.setContaDestino(transferenciaRequest.getContaDestino());
         transferenciaEntity.setTaxa(
@@ -48,20 +51,25 @@ public class TransferenciaUseCase {
     }
 
     public TransferenciaResponse resumoTransferencia(TransferenciaRequest transferenciaRequest){
+
         var transferenciaEntity = new TransferenciaEntity();
         transferenciaEntity.setDataTransferencia(convertToDate(transferenciaRequest.getDataTransferencia()));
         transferenciaEntity.setDataAgendamento(convertToDate(transferenciaRequest.getDataAgendamento()));
-        transferenciaEntity.setValor(transferenciaRequest.getValor());
+        transferenciaEntity.setValor(transferenciaRequest.getValor().setScale(2, RoundingMode.DOWN));
         transferenciaEntity.setContaOrigem(transferenciaRequest.getContaOrigem());
         transferenciaEntity.setContaDestino(transferenciaRequest.getContaDestino());
-        transferenciaEntity.setTaxa(
-                taxTransferenciaUseCase.calcularTaxaTransferencia(
-                        transferenciaRequest.getValor(),
-                        transferenciaEntity.getDataAgendamento(),
-                        transferenciaEntity.getDataTransferencia()
-                )
-        );
-        return transferenciaBuilder.build(transferenciaEntity);
+
+
+
+            transferenciaEntity.setTaxa(
+                    taxTransferenciaUseCase.calcularTaxaTransferencia(
+                            transferenciaRequest.getValor(),
+                            transferenciaEntity.getDataAgendamento(),
+                            transferenciaEntity.getDataTransferencia()
+                    )
+            );
+            return transferenciaBuilder.build(transferenciaEntity);
+
     }
 
     public HistoricoTransferenciaResponse listarTransferencias(){
