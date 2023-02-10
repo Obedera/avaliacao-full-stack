@@ -21,6 +21,9 @@ public class TransferenciaEntity {
     @Column(name="conta_destino")
     private String contaDestino;
 
+    @Column(name="valor")
+    private BigDecimal valor;
+
     @Column(name="taxa")
     private BigDecimal taxa;
 
