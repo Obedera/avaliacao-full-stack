@@ -1,3 +1,89 @@
+# Backend
+
+## Ferramentas utilizadas 
+
+> * IntelliJ Idea Community Edition;
+> * Postman;
+
+## Requisitos para rodar
+
+> Ter instalado na maquina o OpenJDK 17
+> Ter instalado na maquina a ferramenta git
+
+## Como Rodar
+
+> * Faça clone desse projeto do git https://github.com/Obedera/avaliacao-full-stack
+> * Abra o projeto como Mavem na pasta backend com a IDE de preferência e aguarde baixar as dependências
+> * Após baixar as dependências execute a classe Application localizada /backend/src/main/java/com/obedera/transferencias/financeiras/Application.java
+
+
+## Como testar os endpoints
+Segue a lista abaixo de curls para cada endpoint
+
+(Caso use o postman para testar segue o link de como importar o curl https://dev.to/osejudith/how-to-import-curl-into-postman-and-test-requests-1agg)
+
+
+- Obter resumo da transferência(simular quanto irá ficar a taxa)
+> curl --location --request POST 'localhost:8080/api/v1/transferencia/resumo' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "contaOrigem": "111111",
+    "contaDestino": "222222",
+    "valor": 100,
+    "dataAgendamento": "2023-01-19",
+    "dataTransferencia": "2023-01-19"
+}'
+
+
+- Registrar transferência
+> curl --location --request POST 'localhost:8080/api/v1/transferencia/confirmar' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "contaOrigem": "123456",
+    "contaDestino": "123456",
+    "valor": 100,
+    "dataAgendamento": "2023-01-19",
+    "dataTransferencia": "2023-01-19"
+}'
+
+
+- Obter todas transfêrencias agendadas
+> curl --location --request GET 'localhost:8080/api/v1/transferencia/historico'
+
+
+## Linguagens e dependências utilizadas
+1. Java 17
+2. Spring boot
+- JPA
+- WEB
+3. H2
+4. Lombok
+5. Mockito
+6. Junit
+7. Six2six
+
+
+## Responsabilidades
+
+### Controller
+Responsável por receber as requisições HTTP. Realiza conversões e validações de dados.
+
+### Use case
+Contém um ou mais métodos públicos referentes as regras de negócios. 
+
+### Repository Facade
+Responsável por intermediar os acessos aos dados, seja por meio de Repository ou API. 
+
+### Repository
+Executa operações de leitura/escrita no banco de dados. Deve ter `privilégio de classe` e ser acessado somente pelo RepositoryFacade.
+
+### Entity
+Mapeia uma tabela do banco de dados.
+
+
+-----------------------------------------------------
+
+
 # Entregáveis
  Pequena documentação no README explicando suas decisões arquiteturais, versões de linguagem,
 ferramentas utilizadas e instruções para a subida do projeto.
