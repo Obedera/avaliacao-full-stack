@@ -81,6 +81,41 @@ Executa operações de leitura/escrita no banco de dados. Deve ter `privilégio 
 Mapeia uma tabela do banco de dados.
 
 
+# Frontend
+
+## Ferramentas utilizadas 
+
+> * Visual Studio Code;
+
+## Requisitos para rodar
+
+> * Faça clone desse projeto do git https://github.com/Obedera/avaliacao-full-stack
+> * Ter instalado o **Node JS** via `nvm` de preferencia utilize a versão `16.x`
+> * Ter instalado o `yarn` globalmente utilizando o `npm`
+
+## Como Rodar
+Execute os seguintes comandos dentro da pasta "frontend"
+
+> * yarn install
+> * yarn start
+
+## Como Testar
+
+Após rodar os comandos listados acima, abra o navegador e vá para essa url e navegue pelo conteúdo
+> * http://localhost:4200
+
+
+## Linguagens e dependências utilizadas
+1. Angular 12
+ * @angular/material
+2. Rxjs
+3. Moment
+4. Typescript
+
+
+# Observações finais
+Todo o projeto foi desenvolvido utilizando o sistema operacional Ubuntu 22
+
 -----------------------------------------------------
 
 
